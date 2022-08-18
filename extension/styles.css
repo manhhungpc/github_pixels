@@ -24,7 +24,7 @@ input[type="text"] {
 
 #userinput ~ .focus-border {
     position: absolute;
-    bottom: 49%;
+    bottom: 56%;
     left: 50%;
     width: 0;
     height: 2px;
