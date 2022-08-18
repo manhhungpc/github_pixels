@@ -1,71 +1,121 @@
-import * as medium from "./letter/medium/index.js";
+import * as medium from "./characters/medium/index.js";
+import * as small from "./characters/small/index.js";
+import * as mediumNumber from "./characters/medium/number.js";
+import * as smallNumber from "./characters/small/number.js";
 
 export function main() {
-    chrome.runtime.onMessage.addListener(
-        async function (request, sender, sendResponse) {
-            try {
-                const pixel = document.getElementsByClassName("ContributionCalendar-day");
+    chrome.runtime.onMessage.addListener(async function (request, sender, sendResponse) {
+        try {
+            const pixel = document.getElementsByClassName("ContributionCalendar-day");
 
-                clearScreen(pixel)
-                await delay(1500)
+            clearScreen(pixel);
+            await delay(1500);
 
-                const input = formatInput(request.word)
+            const input = formatInput(request.word);
 
-                draw(input, pixel)
-                sendResponse({ status: "Success!" });
-            } catch (error) {
-                console.log(error)
-                sendResponse({ status: "Exception occurred!" });
-            }
+            draw(input, pixel, request.size);
+            sendResponse({ status: "Success!" });
+        } catch (error) {
+            console.log(error);
+            sendResponse({ status: "Exception occurred!" });
         }
-    )
+    });
 }
 
 const formatInput = (input) => {
-    let format = ""
+    let format = "";
+
     for (let i = 0; i < input.length; i++) {
-        format += input[i].toUpperCase()
+        const char = input[i];
+        format += char.toUpperCase();
     }
 
-    return format
-}
+    return format;
+};
 
 async function delay(ms) {
-    return await new Promise(resolve => setTimeout(resolve, ms));
+    return await new Promise((resolve) => setTimeout(resolve, ms));
 }
 
-const clearScreen = (pixel) => {
-    const DISPLAY_AREA = 7 * 51
-    for (let i = 0; i < DISPLAY_AREA; i++) {
+const clearScreen = (pixels) => {
+    const CLEAR_AREA = pixels.length;
+    for (let i = 0; i < CLEAR_AREA; i++) {
         const clearTime = setInterval(() => {
-            let currentLevel = parseInt(pixel[i].dataset.level)
+            let currentLevel = parseInt(pixels[i].dataset.level);
 
-            pixel[i].dataset.level = (currentLevel - 1).toString()
+            pixels[i].dataset.level = (currentLevel - 1).toString();
             currentLevel--;
-        }, 300)
-        setTimeout(() => clearInterval(clearTime), 1500)
+        }, 300);
+        setTimeout(() => clearInterval(clearTime), 1500);
     }
-}
+};
 
-const draw = function (word, pixel) {
-
-    let startPoint = 0
+const draw = function (word, pixel, size) {
+    let startPoint = 0;
+    const NEXT_COLUMN_PIXEL = 7;
+    const numToString = {
+        1: "one",
+        2: "two",
+        3: "three",
+        4: "four",
+        5: "five",
+        6: "six",
+        7: "seven",
+        8: "eight",
+        9: "nine",
+        0: "zero",
+    };
     for (let i = 0; i < word.length; i++) {
-        const character = word[i]
+        const isNumber = Number.isInteger(parseInt(word[i]));
+        const character = isNumber === true ? numToString[word[i]] : word[i];
 
-        displayLetter(medium[character], i, pixel, startPoint)
+        //add a blank column between words if have space
+        if (character === " ") {
+            startPoint += NEXT_COLUMN_PIXEL;
+            continue;
+        }
 
-        startPoint += 7 * (medium[character][0].length + 1)
+        let characterWidth;
+
+        if (isNumber === true) {
+            displayNumber(character, pixel, startPoint, size);
+            characterWidth =
+                size === "medium"
+                    ? mediumNumber[character][0].length
+                    : smallNumber[character][0].length;
+        } else {
+            displayLetter(character, pixel, startPoint, size);
+            characterWidth =
+                size === "medium" ? medium[character][0].length : small[character][0].length;
+        }
+
+        startPoint += NEXT_COLUMN_PIXEL * (characterWidth + 1);
     }
-}
+};
 
 //like A, B, C
-const displayLetter = (letter, position, pixel, startPoint) => {
-    const SPACE_COLUMN = 1, NEXT_COLUMN_PIXEL = 7
+const displayLetter = (character, pixel, startPoint, size) => {
+    const SPACE_FROM_TOP = size === "medium" ? 1 : 2,
+        NEXT_COLUMN_PIXEL = 7;
+    let letter = size === "medium" ? medium[character] : small[character];
+
     for (let i = 0; i < letter.length; i++) {
         for (let j = 0; j < letter[i].length; j++) {
-            //const letterWide = 7 * (letter[i].length + 1)
-            if (letter[i].charAt(j) === "*") pixel[i + SPACE_COLUMN + j * NEXT_COLUMN_PIXEL + startPoint].dataset.level = "4";
+            if (letter[i].charAt(j) === "*")
+                pixel[i + SPACE_FROM_TOP + j * NEXT_COLUMN_PIXEL + startPoint].dataset.level = "4";
         }
     }
-}
+};
+
+const displayNumber = (number, pixel, startPoint, size) => {
+    const SPACE_FROM_TOP = size === "medium" ? 1 : 2,
+        NEXT_COLUMN_PIXEL = 7;
+    let letter = size === "medium" ? mediumNumber[number] : smallNumber[number];
+
+    for (let i = 0; i < letter.length; i++) {
+        for (let j = 0; j < letter[i].length; j++) {
+            if (letter[i].charAt(j) === "*")
+                pixel[i + SPACE_FROM_TOP + j * NEXT_COLUMN_PIXEL + startPoint].dataset.level = "4";
+        }
+    }
+};

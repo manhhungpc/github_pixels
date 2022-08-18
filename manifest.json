@@ -1,24 +1,27 @@
 {
-  "manifest_version": 3,
-  "name": "Github contribution pixel art",
-  "version": "0.1.0",
-  "author": "Manh Hung",
-  "content_scripts": [
-    {
-      "matches": ["https://github.com/*"],
-      "js": ["content_scripts.js"],
-      "css": ["extension/styles.css"]
-    }
-  ],
-  "action": {
-    "default_popup": "extension/popup.html",
-    "default_title": "Text me"
-  },
-  "permissions": ["storage", "activeTab", "declarativeContent"],
-  "web_accessible_resources": [
-    {
-      "resources": ["extension/script.js", "letter/medium/*", "content.js"],
-      "matches": ["https://github.com/*"]
-    }
-  ]
+    "manifest_version": 3,
+    "name": "Github Pixels",
+    "description": "An extension for drawing and creating pixel words on github contributions calendar",
+    "version": "0.2",
+    "author": "Manh Hung",
+    "icons": {
+        "48": "img/icon64.png"
+    },
+    "content_scripts": [
+        {
+            "matches": ["https://github.com/*"],
+            "js": ["content_scripts.js"],
+            "css": ["extension/styles.css"]
+        }
+    ],
+    "action": {
+        "default_popup": "extension/popup.html"
+    },
+    "permissions": ["activeTab", "storage"],
+    "web_accessible_resources": [
+        {
+            "resources": ["extension/script.js", "characters/*", "content.js"],
+            "matches": ["https://github.com/*"]
+        }
+    ]
 }

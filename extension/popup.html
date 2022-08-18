@@ -1,8 +1,23 @@
-<html>
+<html style="width: 300px;">
 
-<body class="body-popup">
-    <h4>Display text</h4>
-    <input type="text" id="userinput" />
+<head>
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body style="width: 300px;" class="body-popup">
+    <img src="../img/logo.png" height="50" width="130" />
+    <h3>What do you want me to draw?</h3>
+    <div class="input-container">
+        <input type="text" placeholder="Sometext" id="userinput" />
+        <span class="focus-border"></span>
+    </div>
+    <div class="choose-style">
+        <h3>What kind of style do you want to draw?</h3>
+        <input type="radio" name="size" id="small" value="small">
+        <label for="small">8bit (max 13 chars)</label><br>
+        <input type="radio" name="size" id="medium" value="medium" checked="true">
+        <label for="medium">64bit (max 10 chars)</label><br>
+    </div>
     <button id="draw">Draw</button>
     <script type="module" src="script.js"></script>
 </body>
