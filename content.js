@@ -4,16 +4,20 @@ import * as mediumNumber from "./characters/medium/number.js";
 import * as smallNumber from "./characters/small/number.js";
 
 export function main() {
+    const pixel = document.getElementsByClassName("ContributionCalendar-day");
+
+    //if it storaged, refresh will automatic redraw
+    chrome.storage.sync.get(["github-pixels", "github-pixels-size"], function (result) {
+        console.log(result);
+        if (result["github-pixels"]) {
+            runDrawingProcess(result["github-pixels"], pixel, result["github-pixels-size"]);
+        }
+    });
+
     chrome.runtime.onMessage.addListener(async function (request, sender, sendResponse) {
         try {
-            const pixel = document.getElementsByClassName("ContributionCalendar-day");
-
-            clearScreen(pixel);
-            await delay(1500);
-
-            const input = formatInput(request.word);
-
-            draw(input, pixel, request.size);
+            chrome.storage.sync.set({ "github-pixels-size": request.size });
+            runDrawingProcess(request.input, pixel, request.size);
             sendResponse({ status: "Success!" });
         } catch (error) {
             console.log(error);
@@ -22,15 +26,10 @@ export function main() {
     });
 }
 
-const formatInput = (input) => {
-    let format = "";
-
-    for (let i = 0; i < input.length; i++) {
-        const char = input[i];
-        format += char.toUpperCase();
-    }
-
-    return format;
+const runDrawingProcess = async (input, pixel, size) => {
+    clearScreen(pixel);
+    await delay(1500);
+    draw(input, pixel, size);
 };
 
 async function delay(ms) {

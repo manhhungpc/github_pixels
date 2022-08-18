@@ -1,67 +1,68 @@
 .choose-style {
-  margin-bottom: 10px;
+    margin-bottom: 10px;
 }
 
 *:focus {
-  outline: none;
+    outline: none;
 }
 
 h3 {
-  margin: 5px;
+    margin: 5px;
 }
 /*input*/
 input[type="text"] {
-  color: #333;
-  letter-spacing: 1px;
+    color: #333;
+    letter-spacing: 1px;
 }
 
 #userinput {
-  border: 0;
-  padding: 7px 0;
-  margin-left: 5px;
-  border-bottom: 1px solid #ccc;
+    border: 0;
+    padding: 7px 0;
+    margin-left: 5px;
+    border-bottom: 1px solid #ccc;
 }
 
 #userinput ~ .focus-border {
-  position: absolute;
-  bottom: 49%;
-  left: 50%;
-  width: 0;
-  height: 2px;
-  margin-left: 2px;
-  background-color: #3399ff;
-  transition: 0.4s;
+    position: absolute;
+    bottom: 49%;
+    left: 50%;
+    width: 0;
+    height: 2px;
+    margin-left: 2px;
+    background-color: #3399ff;
+    transition: 0.4s;
 }
 #userinput:focus ~ .focus-border {
-  width: 56%;
-  transition: 0.4s;
-  left: 12px;
-  outline: none;
+    width: 56%;
+    transition: 0.4s;
+    left: 12px;
+    outline: none;
 }
 
 /*Draw button*/
-#draw {
-  background-color: #fafbfc;
-  border: 1px solid rgba(27, 31, 35, 0.15);
-  border-radius: 6px;
-  color: #24292e;
-  cursor: pointer;
-  font-family: -apple-system, system-ui, "Segoe UI", Helvetica, Arial, sans-serif,
-    "Apple Color Emoji", "Segoe UI Emoji";
-  font-size: 14px;
-  font-weight: 500;
-  padding: 3px 18px;
-  position: relative;
-  transition: background-color 0.2s cubic-bezier(0.3, 0, 0.5, 1);
+.button {
+    background-color: #fafbfc;
+    border: 1px solid rgba(27, 31, 35, 0.15);
+    border-radius: 6px;
+    color: #24292e;
+    cursor: pointer;
+    font-family: -apple-system, system-ui, "Segoe UI", Helvetica, Arial, sans-serif,
+        "Apple Color Emoji", "Segoe UI Emoji";
+    font-size: 14px;
+    font-weight: 500;
+    padding: 3px 18px;
+    margin: 3px 1px;
+    position: relative;
+    transition: background-color 0.2s cubic-bezier(0.3, 0, 0.5, 1);
 }
 
-#draw:hover {
-  background-color: #f3f4f6;
-  text-decoration: none;
-  transition-duration: 0.1s;
+.button:hover {
+    background-color: #f3f4f6;
+    text-decoration: none;
+    transition-duration: 0.1s;
 }
 
-#draw:active {
-  background-color: #edeff2;
-  transition: none 0s;
+.button:active {
+    background-color: #edeff2;
+    transition: none 0s;
 }
