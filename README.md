@@ -37,7 +37,7 @@ v0.2:
 
 v0.3:
 
--   Add storage funtion (If you choose to storage, it will not disappear after refresh. You can manually remove it if you want)
+-   Add storage funtion (If you choose "save to storage", it will not disappear after refresh. You can manually remove it if you want)
 
 ---
 

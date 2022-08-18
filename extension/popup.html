@@ -6,20 +6,19 @@
 
 <body style="width: 300px;" class="body-popup">
     <img src="../img/logo.png" height="50" width="130" />
-    <h3>What do you want me to draw?</h3>
+    <h3 class="title">What do you want me to draw?</h3>
     <div class="input-container">
         <input type="text" placeholder="Sometext" id="userinput" />
         <span class="focus-border"></span>
     </div>
     <div class="choose-style">
-        <h3>What kind of style do you want to draw?</h3>
+        <h3 class="title">What kind of style do you want to draw?</h3>
         <input type="radio" name="size" id="small" value="small">
         <label for="small">8bit (max 13 chars)</label><br>
         <input type="radio" name="size" id="medium" value="medium" checked="true">
         <label for="medium">64bit (max 10 chars)</label><br>
     </div>
     <div class="btn-container">
-
         <button id="draw" class="button">Draw</button>
         <button id="draw-save" class="button">Draw and save to storage</button>
         <button id="remove" class="button">Remove from storage</button>

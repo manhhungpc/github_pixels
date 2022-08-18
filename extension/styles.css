@@ -6,16 +6,13 @@
     outline: none;
 }
 
-h3 {
+.title {
     margin: 5px;
 }
 /*input*/
-input[type="text"] {
+#userinput {
     color: #333;
     letter-spacing: 1px;
-}
-
-#userinput {
     border: 0;
     padding: 7px 0;
     margin-left: 5px;
